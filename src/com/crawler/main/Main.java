@@ -16,6 +16,11 @@ import org.jsoup.select.Elements;
 public class Main {
 
 	public static void main(String[] args) {
+		if (args.length == 0 || args[0].equals("")) {
+			System.out.println("Please enter a search term.");
+			return;
+		}
+
 		String term = args[0];
 		ArrayList<String> results = new ArrayList<>();
 
@@ -25,8 +30,6 @@ public class Main {
 
 		HashMap<String, Integer> topScripts = getTopScripts(results);
 		printResults(topScripts);
-
-
 	}
 
 	private static void printResults(HashMap<String, Integer> topScripts) {
@@ -74,7 +77,7 @@ public class Main {
 		HashMap<String, Integer> totalResults = new HashMap<>();
 
 		for (String link : links) {
-			System.out.print("Looking scrtips for " + link + "... ");
+			System.out.print("Looking scripts for " + link + "... ");
 			Connection connection = Jsoup.connect(link);
 			connection.maxBodySize(0);
 			Document doc;
@@ -87,7 +90,7 @@ public class Main {
 					String lib = script.attr("src");
 					//cleaning libraries
 					if (!lib.equals("")) {
-						lib = cleanScriptName(lib).toLowerCase();
+						lib = cleanScriptName(lib);
 						if(totalResults.get(lib) == null)
 							totalResults.put(lib, 1);
 						else
@@ -104,8 +107,21 @@ public class Main {
 	};
 
 	private static String cleanScriptName(String lib) {
+		lib = lib.toLowerCase();
+
+		// getting only the library name
 		if (lib.lastIndexOf("/") > 0)
 			lib = lib.substring(lib.lastIndexOf("/")+1);
+
+		if (lib.indexOf("?") > 0)
+			lib = lib.substring(0, lib.indexOf("?"));
+
+		if (lib.indexOf("&") > 0)
+			lib = lib.substring(0, lib.indexOf("&"));
+
+		// removing version number
+		lib = lib.replaceAll("(\\.\\d+|\\.\\d+(\\.\\d+)*)?\\.js$", ".js");
+		lib = lib.replace(".latest.js",".js");
 
 		return lib;
 	}
