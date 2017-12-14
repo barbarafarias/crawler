@@ -19,9 +19,8 @@ public class Main {
 		String term = args[0];
 		ArrayList<String> results = new ArrayList<>();
 
-		System.out.println("Looking results page for: " + term + "...");
+		System.out.print("Looking results page for " + term + "... ");
 		results = getGoogleResultsPage(term);
-
 		System.out.println(results.size() + " results found.");
 
 		HashMap<String, Integer> topScripts = getTopScripts(results);
@@ -64,7 +63,7 @@ public class Main {
 					results.add(result);
 			}
 		} catch (IOException e) {
-			System.out.println("Error while trying to get google results page from " + searchUrl);
+			System.out.println("Error while trying to get google results.");
 		}
 
 		return results;
@@ -75,7 +74,7 @@ public class Main {
 		HashMap<String, Integer> totalResults = new HashMap<>();
 
 		for (String link : links) {
-			System.out.println("Looking scrtips for: " + link + "...");
+			System.out.print("Looking scrtips for " + link + "... ");
 			Connection connection = Jsoup.connect(link);
 			connection.maxBodySize(0);
 			Document doc;
@@ -96,8 +95,9 @@ public class Main {
 					}
 				}
 			} catch (IOException e) {
-				System.out.println("Error while trying to get scripts from " + link);
+				System.out.println("Error: " + e.getMessage());
 			}
+			System.out.println("Done.");
 		}
 
 		return totalResults;
