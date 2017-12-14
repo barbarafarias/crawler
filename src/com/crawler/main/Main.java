@@ -113,6 +113,7 @@ public class Main {
 		if (lib.lastIndexOf("/") > 0)
 			lib = lib.substring(lib.lastIndexOf("/")+1);
 
+		// removing parameters
 		if (lib.indexOf("?") > 0)
 			lib = lib.substring(0, lib.indexOf("?"));
 
