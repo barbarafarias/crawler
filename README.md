@@ -11,3 +11,6 @@
 * `$ mvn clean install` - Compile and install the project's dependencies
 * `$ cd target` - Go into the project's target folder
 * `$ java -jar crawler-0.0.1.jar <search_term>` - Run the program and get the top 5 scripts from results page
+
+### Notes
+* The project uses jsoup library which provides a very convenient API for extracting and manipulating HTML documents. Read more about jsoup [here](https://jsoup.org/).
