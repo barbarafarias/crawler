@@ -54,8 +54,8 @@ public class Main {
 		try {
 			doc = connection.userAgent("Chrome").get();
 			// finding Results
-			Elements newsHeadlines = doc.select("#search").select("h3.r a");
-			for (Element headline : newsHeadlines) {
+			Elements searchHeadlines = doc.select("#search").select("h3.r a");
+			for (Element headline : searchHeadlines) {
 				// cleaning urls
 				String result = headline.attr("href").toString().replace("/url?q=","");
 				result = result.substring(0, result.indexOf("&"));
